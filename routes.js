@@ -4,6 +4,6 @@ import { veiculoIndex, veiculoCreate } from "./controllers/veiculoController.js"
 const router = Router()
 
 router.get('/veiculos', veiculoIndex)
-.post('/veiculos', veiculoCreate)
+      .post('/veiculos', veiculoCreate)
 
 export default router

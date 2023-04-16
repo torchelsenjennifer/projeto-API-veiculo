@@ -13,7 +13,7 @@ export const veiculoIndex = async (req, res) => {
 
 export const veiculoCreate = async (req, res) => {
     const { modelo, marca, ano, preco, placa } = req.body
-  
+   
     if (!modelo || !marca || !ano || !preco || !placa) {
       res.status(400).json({ id: 0, msg: "Erro... Informe modelo, marca, ano, placa e preco do Carro." })
       return

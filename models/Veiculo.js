@@ -7,10 +7,6 @@ export const Veiculo = sequelize.define('Carro', {
     primaryKey: true,
     autoIncrement: true
   },
-  nome: {
-    type: DataTypes.STRING(30),
-    allowNull: false
-  },
   modelo: {
     type: DataTypes.STRING(40),
     allowNull: false
@@ -25,7 +21,20 @@ export const Veiculo = sequelize.define('Carro', {
   },
   ano: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    //valida para que o ano seja inteiro, 4 digitos e menor que o ano atual
+    validate: {
+      isInt: true,
+//      len: [4, 4],
+      len: { 
+        args: [4,4],
+        msg: "Ano deve possuir 4 digitos"
+      },  
+      max: {
+        args: new Date().getFullYear(),
+        msg: "Ano não pode ser maior que o ano atual"
+      }  
+    }
   },
   preco: {
     type: DataTypes.REAL,
@@ -36,5 +45,5 @@ export const Veiculo = sequelize.define('Carro', {
     allowNull: false
   }
 }, {
-  tableName : 'veiculos'
+  tableName : 'veiculosAPI'
 });
