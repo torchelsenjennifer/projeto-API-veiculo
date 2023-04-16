@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../databases/conecta.js';
 
-export const Carro = sequelize.define('Carro', {
+export const Veiculo = sequelize.define('Carro', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -11,27 +11,30 @@ export const Carro = sequelize.define('Carro', {
     type: DataTypes.STRING(30),
     allowNull: false
   },
-  clube: {
+  modelo: {
     type: DataTypes.STRING(40),
     allowNull: false
   },
-  posicao: {
-    type: DataTypes.STRING(12),
-    allowNull: false
+  marca: {
+    type: DataTypes.STRING(30),
+    allowNull: false,
+    //setando a marca para que ela seja inserida e convertida em letras maisculas
+    set(value) {
+      this.setDataValue('marca', value.toUpperCase())
+    } 
   },
-  idade: {
+  ano: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  salario: {
+  preco: {
     type: DataTypes.REAL,
     allowNull: false
   },
-  nacionalidade:{
-    type: DataTypes.STRING(20),
-    defaultValue: 'Brasileira',
+  placa:{
+    type: DataTypes.STRING(12),
     allowNull: false
   }
 }, {
-  tableName : 'jogadores'
+  tableName : 'veiculos'
 });
