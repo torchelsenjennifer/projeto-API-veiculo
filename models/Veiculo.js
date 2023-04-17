@@ -41,8 +41,35 @@ export const Veiculo = sequelize.define('Carro', {
     allowNull: false
   },
   placa:{
-    type: DataTypes.STRING(12),
-    allowNull: false
+    type: DataTypes.STRING(7),
+    allowNull: false,
+    unique: true,
+    validate: {
+      verificaTamanho(value) {
+        if (value.length != 7) {
+          throw new Error('Placa deve possuir 7 caracteres')
+        }
+      }      
+    }
+  },
+  status: {
+    type: DataTypes.VIRTUAL,
+    //Um valor virtual que não é armazenado no banco de dados
+    get() {
+      const anoAtual = new Date().getFullYear()
+      let valor 
+      if (this.ano == anoAtual) {
+        valor = "Novo"
+      } else if (this.ano == anoAtual-1 || this.ano == anoAtual-2) {
+        valor = "Semi-novo"
+      } else {
+        valor = "Usado"
+      }
+      return valor
+    },
+    set(value) {
+      throw new Error("Erro... o campo status é calculado, não deve ter atribuição")
+    }
   }
 }, {
   tableName : 'veiculosAPI'
